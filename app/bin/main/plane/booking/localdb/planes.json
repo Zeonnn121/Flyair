@@ -1,0 +1,102 @@
+[
+  {
+    "planeId": "PLN001",
+    "planeName": "IndiGo 6E-501",
+    "departureTime": "2025-08-15T10:30:00",
+    "arrivalTime": "2025-08-15T12:30:00",
+    "source": "Mumbai",
+    "destination": "Delhi",
+    "availableSeats": 120,
+    "classAvailability": "ECONOMY"
+  },
+  {
+    "planeId": "PLN002",
+    "planeName": "Air India AI-101",
+    "departureTime": "2025-08-16T11:00:00",
+    "arrivalTime": "2025-08-16T13:30:00",
+    "source": "Delhi",
+    "destination": "Bangalore",
+    "availableSeats": 90,
+    "classAvailability": "BUSINESS"
+  },
+  {
+    "planeId": "PLN003",
+    "planeName": "SpiceJet SG-404",
+    "departureTime": "2025-08-17T09:15:00",
+    "arrivalTime": "2025-08-17T11:45:00",
+    "source": "Chennai",
+    "destination": "Kolkata",
+    "availableSeats": 75,
+    "classAvailability": "FIRST_CLASS"
+  },
+  {
+    "planeId": "PLN004",
+    "planeName": "Vistara UK-834",
+    "departureTime": "2025-08-15T14:00:00",
+    "arrivalTime": "2025-08-15T16:00:00",
+    "source": "Hyderabad",
+    "destination": "Mumbai",
+    "availableSeats": 150,
+    "classAvailability": "ECONOMY"
+  },
+  {
+    "planeId": "PLN005",
+    "planeName": "Akasa Air QP-309",
+    "departureTime": "2025-08-18T08:30:00",
+    "arrivalTime": "2025-08-18T10:00:00",
+    "source": "Bangalore",
+    "destination": "Goa",
+    "availableSeats": 60,
+    "classAvailability": "BUSINESS"
+  },
+  {
+    "planeId": "PLN006",
+    "planeName": "Go First G8-212",
+    "departureTime": "2025-08-19T07:45:00",
+    "arrivalTime": "2025-08-19T09:15:00",
+    "source": "Pune",
+    "destination": "Ahmedabad",
+    "availableSeats": 85,
+    "classAvailability": "ECONOMY"
+  },
+  {
+    "planeId": "PLN007",
+    "planeName": "AirAsia I5-788",
+    "departureTime": "2025-08-20T12:15:00",
+    "arrivalTime": "2025-08-20T14:00:00",
+    "source": "Jaipur",
+    "destination": "Lucknow",
+    "availableSeats": 100,
+    "classAvailability": "BUSINESS"
+  },
+  {
+    "planeId": "PLN008",
+    "planeName": "IndiGo 6E-334",
+    "departureTime": "2025-08-21T15:30:00",
+    "arrivalTime": "2025-08-21T17:45:00",
+    "source": "Bhubaneswar",
+    "destination": "Delhi",
+    "availableSeats": 95,
+    "classAvailability": "FIRST_CLASS"
+  },
+  {
+    "planeId": "PLN009",
+    "planeName": "Vistara UK-726",
+    "departureTime": "2025-08-22T10:00:00",
+    "arrivalTime": "2025-08-22T12:15:00",
+    "source": "Mumbai",
+    "destination": "Chandigarh",
+    "availableSeats": 130,
+    "classAvailability": "ECONOMY"
+  },
+  {
+    "planeId": "PLN010",
+    "planeName": "SpiceJet SG-514",
+    "departureTime": "2025-08-23T13:45:00",
+    "arrivalTime": "2025-08-23T15:30:00",
+    "source": "Delhi",
+    "destination": "Patna",
+    "availableSeats": 70,
+    "classAvailability": "BUSINESS"
+  }
+]
