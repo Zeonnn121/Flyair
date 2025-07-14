@@ -13,140 +13,112 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Userservice {
-    private User user;
+    private User currentUser;
     private List<User> userlist;
     private static final String USERS_PATH = "app/src/main/java/plane/booking/localdb/users.json";
-    private static final String PLANES_PATH = "app/src/main/java/plane/booking/localdb/planes.json";
-
     private static final ObjectMapper objmapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
             .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
-            .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false)
-            .configure(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public Userservice() throws IOException {
         this.userlist = loadUser();
     }
 
-    public Userservice(User user1) throws IOException {
-        this.user = user1;
-        this.userlist = loadUser();
+    public Userservice(User user) throws IOException {
+        this();
+        this.currentUser = user;
     }
 
-    public List<User> loadUser() throws IOException {
+    private List<User> loadUser() throws IOException {
         File users = new File(USERS_PATH);
         if (!users.exists()) {
             throw new IOException("Users file not found at: " + USERS_PATH);
+        }     if (users.length() == 0) {
+            return new ArrayList<>(); // File is empty
         }
         return objmapper.readValue(users, new TypeReference<List<User>>() {});
     }
 
     public Boolean loginUser(User user) {
         Optional<User> userFound = userlist.stream()
-                .filter(user1 ->
-                        user1.getName().equals(user.getName()) &&
-                                UserServiceUtil.checkPassword(user.getPassword(), user1.getHashpassword())
+                .filter(u ->
+                        u.getName().equals(user.getName()) &&
+                                UserServiceUtil.checkPassword(user.getPassword(), u.getHashpassword())
                 )
                 .findFirst();
 
         if (userFound.isPresent()) {
-            this.user = userFound.get();
+            this.currentUser = userFound.get();
             return true;
-        } else{
-            System.out.println("Wrong input try again");
         }
         return false;
     }
 
-    public Boolean signup(User user1) {
+    public Boolean signup(User newUser) {
         try {
-            userlist.add(user1);
-            SaveUserToFile();
+            userlist.add(newUser);
+            saveUserToFile();
+            this.currentUser = newUser;
             return true;
         } catch (IOException e) {
             return false;
         }
     }
 
-    public void SaveUserToFile() throws IOException {
+    public void saveUserToFile() throws IOException {
         File userfile = new File(USERS_PATH);
-        objmapper.writeValue(userfile, userlist);
+        objmapper.writerWithDefaultPrettyPrinter().writeValue(userfile,userlist);
+    }
+
+    public void printUserTickets() {
+        if (currentUser != null) {
+            currentUser.printtickets();
+        }
     }
 
     public void fetchBooking() {
-        user.printtickets();
-    }
-
-    public Boolean cancelBooking(String Ticketid) {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Enter ticket to be cancelled");
-        String inputTicketId = s.nextLine();  // Use a new variable for input
-
-        if (inputTicketId == null || inputTicketId.trim().isEmpty()) {
-            System.out.println("Ticket id cannot be null or empty");
-            return false;
-        }
-
-        boolean removed = user.getTicketsbooked().removeIf(ticket ->
-                ticket.getTicketid().equals(inputTicketId));
-
-        if (removed) {
-            try {
-                SaveUserToFile();
-                System.out.println("Ticket ID: " + inputTicketId + " has been cancelled");
-                return true;
-            } catch (IOException e) {
-                System.out.println("Failed to save cancellation");
-                return false;
+        if (currentUser != null) {
+            List<Ticket> tickets = currentUser.getTicketsbooked();
+            if (tickets == null || tickets.isEmpty()) {
+                System.out.println("No tickets found");
+            } else {
+                currentUser.printtickets();
             }
         } else {
-            System.out.println("Ticket ID could not be found");
-            return false;
+            System.out.println("User not logged in.");
         }
     }
 
-    public List<Plane> getPlane(String source, String destination) {
-        try {
-            File planesFile = new File(PLANES_PATH);
-            List<Plane> planes = objmapper.readValue(planesFile, new TypeReference<List<Plane>>() {});
+    public Boolean cancelTicket(String ticketId) {
+        if (currentUser == null) return false;
 
-            return planes.stream()
-                    .filter(p -> p.getSource().equalsIgnoreCase(source)
-                            && p.getDestination().equalsIgnoreCase(destination))
-                    .collect(Collectors.toList());
+        boolean removed = currentUser.getTicketsbooked().removeIf(t -> t.getTicketid().equals(ticketId));
+        if (removed) {
+            try {
+                saveUserToFile();
 
-        } catch (IOException e) {
-            System.out.println("Failed to fetch planes: " + e.getMessage());
-            return List.of();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
         }
-    }
-
-    public int fetchSeats(String planeId) {
-        try {
-            File planesFile = new File(PLANES_PATH);
-            List<Plane> planes = objmapper.readValue(planesFile, new TypeReference<List<Plane>>() {});
-
-            return planes.stream()
-                    .filter(p -> p.getPlaneId().equals(planeId))
-                    .map(Plane::getAvailableSeats)
-                    .findFirst()
-                    .orElse(-1);
-
-        } catch (IOException e) {
-            System.out.println("Failed to fetch seat availability.");
-            return -1;
-        }
+        return false;
     }
 
     public Boolean bookPlane(Plane selectedPlane, seatClass selectedClass, int seatCount) {
-        if (selectedPlane.getAvailableSeats() < seatCount) {
-            System.out.println("Not enough seats available.");
+        double TicketPrice = selectedPlane.getPriceForeachClass(selectedClass);
+        double TotalPrice = TicketPrice*seatCount;
+        if (currentUser == null || selectedPlane.getAvailableSeats() < seatCount) {
+            System.out.println("Not enough seats available or user not logged in.");
             return false;
         }
 
+        if (currentUser.getBalance()<TotalPrice){
+            System.out.println("Insufficient balance try adding amount first");
+            return false;
+        }
         Random r = new Random();
 
         for (int i = 0; i < seatCount; i++) {
@@ -155,25 +127,26 @@ public class Userservice {
 
             Ticket ticket = new Ticket(
                     ticketId,
-                    user.getUserId(),
+                    currentUser.getUserId(),
                     selectedPlane.getSource(),
                     selectedPlane.getDestination(),
-                    LocalDateTime.now(), // Changed to LocalDateTime
+                    LocalDateTime.now(),
                     seatNo,
                     selectedClass,
-                    1999.0,
+                    TicketPrice,
                     planeStatus.SCHEDULED,
                     selectedPlane
             );
+            ticket.setSeat_class(selectedClass);
+            ticket.setCost(selectedPlane.getPriceForeachClass(selectedClass));
 
-            user.getTicketsbooked().add(ticket);
+            currentUser.getTicketsbooked().add(ticket);
         }
-
-        // Update available seats locally
+        currentUser.setBalance(currentUser.getBalance()-TotalPrice);
         selectedPlane.setAvailableSeats(selectedPlane.getAvailableSeats() - seatCount);
 
         try {
-            SaveUserToFile();
+            saveUserToFile();
             System.out.println(seatCount + " ticket(s) booked successfully.");
             return true;
         } catch (IOException e) {
@@ -181,4 +154,34 @@ public class Userservice {
             return false;
         }
     }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+    public void checkBalance(Userservice userbookingservice){
+        System.out.println("Your balance is "+ currentUser.getBalance());
+    }
+    public boolean addBalance(double amount) {
+        if (currentUser == null) {
+            System.out.println("User not logged in.");
+            return false;
+        }
+
+        if (amount <= 0) {
+            System.out.println("Amount must be positive.");
+            return false;
+        }
+
+        currentUser.setBalance(currentUser.getBalance() + amount);
+
+        try {
+            saveUserToFile();
+            System.out.println("Successfully added " + amount + " to your balance. New balance: " + currentUser.getBalance());
+            return true;
+        } catch (IOException e) {
+            System.out.println("Failed to update balance.");
+            return false;
+        }
+    }
+
 }

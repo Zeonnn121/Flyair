@@ -1,1 +1,83 @@
-[{"name":"Zeon Dsouza","password":"Zeondsouza","hashpassword":"z99a18c428cb38d5f260853678922e03","ticketsbooked":[{"ticketid":"TIC001","userId":"Zeon121","source":"Mumbai","destination":"Delhi","dateoftravel":"2025-08-15T10:30:00","seatNo":12,"seat_class":"ECONOMY","cost":6000.0,"status":"SCHEDULED","plane":{"planeId":"PLN001","planeName":"IndiGo 6E-501","source":"Mumbai","destination":"Delhi","departureTime":"2025-08-15T10:30:00","arrivalTime":"2025-08-15T12:30:00","planeInfo":"Plane ID: PLN001 Plane Name: IndiGo 6E-501","availableSeats":120,"classAvailability":"ECONOMY"},"ticketInfo":"Ticket ID: TIC001\nUser ID: Zeon121\nFrom: Mumbai\nTo: Delhi\nDate of Travel: 2025-08-15T10:30\nSeat No: 12\nSeat Class: ECONOMY\nCost: ₹6000.00\nStatus: SCHEDULED\nPlane: IndiGo 6E-501 (PLN001)"}],"userId":"Zeon121","phoneNo":9876543210},{"name":"zeon","password":"ddd","hashpassword":"$2a$10$Ojs7OqJDOZCsXtey5oYkmeXMawhVS/A7mlTUzm.VZrTrTl14KniMi","ticketsbooked":[],"userId":"6a4472f0-5c8b-4e2e-b661-4f2210dd7bc6","phoneNo":0},{"name":"Zeonnn","password":"123","hashpassword":"$2a$10$KJPdL.O9Szt64dgtdhEK9eboqx/eDSNagXLBFsJAEZGuVAIHcfJf6","ticketsbooked":[],"userId":"1c782e3a-5e75-4e89-bb2a-191043fdbdbe","phoneNo":0},{"name":"qw","password":"qw","hashpassword":"$2a$10$pbE712HJxcw5Xc.XenkNYucnEay31aJHM8lT7/EzGH9yglF.yru7y","ticketsbooked":[],"userId":"8024c59d-7573-438d-b5a8-c0f106d6d5a6","phoneNo":0},{"name":"qw","password":"qw","hashpassword":"$2a$10$pbE712HJxcw5Xc.XenkNYucnEay31aJHM8lT7/EzGH9yglF.yru7y","ticketsbooked":[],"userId":"8024c59d-7573-438d-b5a8-c0f106d6d5a6","phoneNo":0}]
+[ {
+  "name" : "admin",
+  "password" : "admin",
+  "hashpassword" : "$2a$10$7ELLu6cH6enbZtpsffXYPubFzdiBim07XuWYMUHt2ysUnafUKDbvO",
+  "ticketsbooked" : [ {
+    "ticketid" : "TKT2f841b",
+    "userId" : "ea156676-3ea4-4635-8dff-d526a6edd943",
+    "source" : "Delhi",
+    "destination" : "Bangalore",
+    "dateoftravel" : "2025-07-14T21:12:40",
+    "seatNo" : 5,
+    "seat_class" : "BUSINESS",
+    "cost" : 12000.0,
+    "status" : "SCHEDULED",
+    "plane" : {
+      "planeId" : "PLN002",
+      "planeName" : "Air India AI-101",
+      "source" : "Delhi",
+      "destination" : "Bangalore",
+      "economyPrice" : 6000.0,
+      "businessPrice" : 12000.0,
+      "firstClassPrice" : 18000.0,
+      "departureTime" : "2025-08-16T11:00:00",
+      "arrivalTime" : "2025-08-16T13:30:00",
+      "availableSeats" : 86,
+      "planeInfo" : "Plane ID: PLN002 Plane Name: Air India AI-101",
+      "classAvailability" : [ "ECONOMY", "BUSINESS", "FIRST_CLASS" ]
+    },
+    "ticketInfo" : "Ticket ID: TKT2f841b\nUser ID: ea156676-3ea4-4635-8dff-d526a6edd943\nFrom: Delhi\nTo: Bangalore\nDate of Travel: 2025-07-14T21:12:40.581612500\nSeat No: 5\nSeat Class: BUSINESS\nCost: ₹12000.00\nStatus: SCHEDULED\nPlane: Air India AI-101 (PLN002)"
+  }, {
+    "ticketid" : "TKT13d820",
+    "userId" : "ea156676-3ea4-4635-8dff-d526a6edd943",
+    "source" : "Delhi",
+    "destination" : "Bangalore",
+    "dateoftravel" : "2025-07-14T21:12:40",
+    "seatNo" : 57,
+    "seat_class" : "BUSINESS",
+    "cost" : 12000.0,
+    "status" : "SCHEDULED",
+    "plane" : {
+      "planeId" : "PLN002",
+      "planeName" : "Air India AI-101",
+      "source" : "Delhi",
+      "destination" : "Bangalore",
+      "economyPrice" : 6000.0,
+      "businessPrice" : 12000.0,
+      "firstClassPrice" : 18000.0,
+      "departureTime" : "2025-08-16T11:00:00",
+      "arrivalTime" : "2025-08-16T13:30:00",
+      "availableSeats" : 86,
+      "planeInfo" : "Plane ID: PLN002 Plane Name: Air India AI-101",
+      "classAvailability" : [ "ECONOMY", "BUSINESS", "FIRST_CLASS" ]
+    },
+    "ticketInfo" : "Ticket ID: TKT13d820\nUser ID: ea156676-3ea4-4635-8dff-d526a6edd943\nFrom: Delhi\nTo: Bangalore\nDate of Travel: 2025-07-14T21:12:40.582967900\nSeat No: 57\nSeat Class: BUSINESS\nCost: ₹12000.00\nStatus: SCHEDULED\nPlane: Air India AI-101 (PLN002)"
+  }, {
+    "ticketid" : "TKT30fbe5",
+    "userId" : "ea156676-3ea4-4635-8dff-d526a6edd943",
+    "source" : "Delhi",
+    "destination" : "Bangalore",
+    "dateoftravel" : "2025-07-14T21:12:40",
+    "seatNo" : 59,
+    "seat_class" : "BUSINESS",
+    "cost" : 12000.0,
+    "status" : "SCHEDULED",
+    "plane" : {
+      "planeId" : "PLN002",
+      "planeName" : "Air India AI-101",
+      "source" : "Delhi",
+      "destination" : "Bangalore",
+      "economyPrice" : 6000.0,
+      "businessPrice" : 12000.0,
+      "firstClassPrice" : 18000.0,
+      "departureTime" : "2025-08-16T11:00:00",
+      "arrivalTime" : "2025-08-16T13:30:00",
+      "availableSeats" : 86,
+      "planeInfo" : "Plane ID: PLN002 Plane Name: Air India AI-101",
+      "classAvailability" : [ "ECONOMY", "BUSINESS", "FIRST_CLASS" ]
+    },
+    "ticketInfo" : "Ticket ID: TKT30fbe5\nUser ID: ea156676-3ea4-4635-8dff-d526a6edd943\nFrom: Delhi\nTo: Bangalore\nDate of Travel: 2025-07-14T21:12:40.584986600\nSeat No: 59\nSeat Class: BUSINESS\nCost: ₹12000.00\nStatus: SCHEDULED\nPlane: Air India AI-101 (PLN002)"
+  } ],
+  "userId" : "ea156676-3ea4-4635-8dff-d526a6edd943",
+  "balance" : 452000.0
+} ]

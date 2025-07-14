@@ -8,39 +8,47 @@ public class User {
     private String hashpassword;
     private List<Ticket> ticketsbooked;
     private String userId;
-    private long phoneNo;
+    private double balance=5000;
 
-    public User(String name,String password,String hashpassword,List<Ticket> ticketsbooked,String userId,long phoneNo){
-        this.name= name;
+    public User(String name, String password, String hashpassword,
+                List<Ticket> ticketsbooked, String userId, double balance) {
+        this.name = name;
         this.password = password;
-        this.hashpassword= hashpassword;
+        this.hashpassword = hashpassword;
         this.ticketsbooked = ticketsbooked;
-        this.userId= userId;
-        this.phoneNo = phoneNo;
+        this.userId = userId;
+        this.balance = balance;
     }
-    public User(){}
-    public String getName(){
+
+    public User() {}
+
+    public String getName() {
         return name;
     }
-    public String getPassword(){
+
+    public String getPassword() {
         return password;
     }
-    public String getHashpassword(){
+
+    public String getHashpassword() {
         return hashpassword;
     }
-    public List<Ticket> getTicketsbooked(){
+
+    public List<Ticket> getTicketsbooked() {
         return ticketsbooked;
     }
-    public String getUserId(){
+
+    public String getUserId() {
         return userId;
     }
-    public long getPhoneNo(){
-        return phoneNo;
-    }
-    public void printtickets(){
-        for (int i = 0; i < ticketsbooked.size() ; i++) {
-            System.out.println(ticketsbooked.get(i).getTicketInfo());
 
+    public double getBalance() {
+        return balance;
+    }
+
+    public void printtickets() {
+        for (Ticket ticket : ticketsbooked) {
+            System.out.println(ticket.getTicketInfo());
         }
     }
 
@@ -56,8 +64,8 @@ public class User {
         this.password = password;
     }
 
-    public void setPhoneNo(long phoneNo) {
-        this.phoneNo = phoneNo;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public void setTicketsbooked(List<Ticket> ticketsbooked) {
@@ -67,5 +75,4 @@ public class User {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
 }
