@@ -39,76 +39,76 @@ public class Ticket {
         return ticketid;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public LocalDateTime getDateoftravel() {
-        return dateoftravel;
-    }
-
-    public int getSeatNo() {
-        return seatNo;
-    }
-
-    public seatClass getSeat_class() {
-        return seat_class;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public planeStatus getStatus() {
-        return status;
-    }
-
-    public Plane getPlane() {
-        return plane;
-    }
-
     public void setTicketid(String ticketid) {
         this.ticketid = ticketid;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    public String getSource() {
+        return source;
+    }
+
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getDestination() {
+        return destination;
     }
 
     public void setDestination(String destination) {
         this.destination = destination;
     }
 
+    public LocalDateTime getDateoftravel() {
+        return dateoftravel;
+    }
+
     public void setDateoftravel(LocalDateTime dateoftravel) {
         this.dateoftravel = dateoftravel;
+    }
+
+    public int getSeatNo() {
+        return seatNo;
     }
 
     public void setSeatNo(int seatNo) {
         this.seatNo = seatNo;
     }
 
+    public seatClass getSeat_class() {
+        return seat_class;
+    }
+
     public void setSeat_class(seatClass seat_class) {
         this.seat_class = seat_class;
+    }
+
+    public double getCost() {
+        return cost;
     }
 
     public void setCost(double cost) {
         this.cost = cost;
     }
 
+    public planeStatus getStatus() {
+        return status;
+    }
+
     public void setStatus(planeStatus status) {
         this.status = status;
+    }
+
+    public Plane getPlane() {
+        return plane;
     }
 
     public void setPlane(Plane plane) {
