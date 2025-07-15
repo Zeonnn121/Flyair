@@ -8,11 +8,13 @@ import plane.booking.util.UserServiceUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Userservice {
+    Scanner sc;
     private User currentUser;
     private List<User> userlist;
     private static final String USERS_PATH = "app/src/main/java/plane/booking/localdb/users.json";
@@ -57,6 +59,14 @@ public class Userservice {
     }
 
     public Boolean signup(User newUser) {
+
+        boolean exists = userlist.stream()
+                .anyMatch(user -> user.getName().equalsIgnoreCase(newUser.getName()));
+
+        if (exists) {
+            return false; // User already exists
+        }
+
         try {
             userlist.add(newUser);
             saveUserToFile();
@@ -66,6 +76,7 @@ public class Userservice {
             return false;
         }
     }
+
 
     public void saveUserToFile() throws IOException {
         File userfile = new File(USERS_PATH);
@@ -107,9 +118,19 @@ public class Userservice {
         return false;
     }
 
-    public Boolean bookPlane(Plane selectedPlane, seatClass selectedClass, int seatCount) {
+    public Boolean bookPlane(Scanner scanner,Plane selectedPlane, seatClass selectedClass, int seatCount) {
         double TicketPrice = selectedPlane.getPriceForeachClass(selectedClass);
         double TotalPrice = TicketPrice*seatCount;
+        System.out.println("Ticket price for each seat is: "+ TicketPrice);
+        System.out.println("Total price for "+ seatCount+ " seats is: "+ TotalPrice);
+        System.out.println("Do you want to proceed?");
+        System.out.println("Yes/no");
+
+        String choice = scanner.nextLine();
+
+        if (choice.equalsIgnoreCase("yes")){
+
+
         if (currentUser == null || selectedPlane.getAvailableSeats() < seatCount) {
             System.out.println("Not enough seats available or user not logged in.");
             return false;
@@ -152,6 +173,12 @@ public class Userservice {
         } catch (IOException e) {
             System.out.println("Failed to save booked tickets.");
             return false;
+        }} else if (choice.equalsIgnoreCase("no")){
+            System.out.println("Getting back to booking menu");
+            return false;
+        } else {
+            System.out.println("Invalid input returing to booking menu");
+            return false;
         }
     }
 
@@ -183,5 +210,17 @@ public class Userservice {
             return false;
         }
     }
+    private void handleCancelBooking(Scanner scanner, Userservice userbookingservice) {
+        System.out.println("Enter Ticket ID to Cancel:");
+        String ticketId = scanner.nextLine();
+        boolean cancelled = userbookingservice.cancelTicket(ticketId);
+        if (cancelled) {
+            System.out.println("Ticket cancelled successfully.");
+
+        } else {
+            System.out.println("Failed to cancel ticket or ticket not found.");
+        }
+    }
+
 
 }
