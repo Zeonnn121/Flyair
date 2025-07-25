@@ -34,6 +34,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'
     implementation 'org.mindrot:jbcrypt:0.4'
     testImplementation 'junit:junit:4.13.2'
+    implementation 'com.itextpdf:itextpdf:5.5.13.3'
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

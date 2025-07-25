@@ -1,8 +1,13 @@
 package plane.booking.service;
+import com.itextpdf.text.*;
 
+import java.io.FileOutputStream;
+import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import plane.booking.entities.*;
 import plane.booking.util.UserServiceUtil;
 
@@ -118,69 +123,86 @@ public class Userservice {
         return false;
     }
 
-    public Boolean bookPlane(Scanner scanner,Plane selectedPlane, seatClass selectedClass, int seatCount) {
+    public Boolean bookPlane(Scanner scanner, Plane selectedPlane, seatClass selectedClass, int seatCount) {
         double TicketPrice = selectedPlane.getPriceForeachClass(selectedClass);
-        double TotalPrice = TicketPrice*seatCount;
-        System.out.println("Ticket price for each seat is: "+ TicketPrice);
-        System.out.println("Total price for "+ seatCount+ " seats is: "+ TotalPrice);
+        double TotalPrice = TicketPrice * seatCount;
+
+        System.out.println("Ticket price for each seat is: " + TicketPrice);
+        System.out.println("Total price for " + seatCount + " seats is: " + TotalPrice);
         System.out.println("Do you want to proceed?");
         System.out.println("Yes/no");
 
         String choice = scanner.nextLine();
 
-        if (choice.equalsIgnoreCase("yes")){
+        if (choice.equalsIgnoreCase("yes")) {
+
+            if (currentUser == null || selectedPlane.getAvailableSeats() < seatCount) {
+                System.out.println("Not enough seats available or user not logged in.");
+                return false;
+            }
+
+            if (currentUser.getBalance() < TotalPrice) {
+                System.out.println("Insufficient balance. Try adding amount first.");
+                return false;
+            }
+
+            Random r = new Random();
+            List<Ticket> newTickets = new ArrayList<>();
+
+            for (int i = 0; i < seatCount; i++) {
+                int seatNo = r.nextInt(100) + 1;
+                String ticketId = "TKT" + UUID.randomUUID().toString().substring(0, 6);
+
+                Ticket ticket = new Ticket(
+                        ticketId,
+                        currentUser.getUserId(),
+                        selectedPlane.getSource(),
+                        selectedPlane.getDestination(),
+                        LocalDateTime.now(),
+                        seatNo,
+                        selectedClass,
+                        TicketPrice,
+                        planeStatus.SCHEDULED,
+                        selectedPlane
+                );
+
+                ticket.setSeat_class(selectedClass);
+                ticket.setCost(TicketPrice);
+
+                currentUser.getTicketsbooked().add(ticket);
+                newTickets.add(ticket);
+            }
+
+            currentUser.setBalance(currentUser.getBalance() - TotalPrice);
+            selectedPlane.setAvailableSeats(selectedPlane.getAvailableSeats() - seatCount);
+
+            try {
+                saveUserToFile();
+                System.out.println(seatCount + " ticket(s) booked successfully.");
 
 
-        if (currentUser == null || selectedPlane.getAvailableSeats() < seatCount) {
-            System.out.println("Not enough seats available or user not logged in.");
-            return false;
-        }
+                System.out.println("Do you want to print your ticket(s) in PDF? (yes/no)");
+                String printChoice = scanner.nextLine();
 
-        if (currentUser.getBalance()<TotalPrice){
-            System.out.println("Insufficient balance try adding amount first");
-            return false;
-        }
-        Random r = new Random();
+                if (printChoice.equalsIgnoreCase("yes")) {
+                    generatePDF(newTickets, currentUser.getName());
+                }
 
-        for (int i = 0; i < seatCount; i++) {
-            int seatNo = r.nextInt(100) + 1;
-            String ticketId = "TKT" + UUID.randomUUID().toString().substring(0, 6);
+                return true;
+            } catch (IOException e) {
+                System.out.println("Failed to save booked tickets.");
+                return false;
+            }
 
-            Ticket ticket = new Ticket(
-                    ticketId,
-                    currentUser.getUserId(),
-                    selectedPlane.getSource(),
-                    selectedPlane.getDestination(),
-                    LocalDateTime.now(),
-                    seatNo,
-                    selectedClass,
-                    TicketPrice,
-                    planeStatus.SCHEDULED,
-                    selectedPlane
-            );
-            ticket.setSeat_class(selectedClass);
-            ticket.setCost(selectedPlane.getPriceForeachClass(selectedClass));
-
-            currentUser.getTicketsbooked().add(ticket);
-        }
-        currentUser.setBalance(currentUser.getBalance()-TotalPrice);
-        selectedPlane.setAvailableSeats(selectedPlane.getAvailableSeats() - seatCount);
-
-        try {
-            saveUserToFile();
-            System.out.println(seatCount + " ticket(s) booked successfully.");
-            return true;
-        } catch (IOException e) {
-            System.out.println("Failed to save booked tickets.");
-            return false;
-        }} else if (choice.equalsIgnoreCase("no")){
+        } else if (choice.equalsIgnoreCase("no")) {
             System.out.println("Getting back to booking menu");
             return false;
         } else {
-            System.out.println("Invalid input returing to booking menu");
+            System.out.println("Invalid input, returning to booking menu");
             return false;
         }
     }
+
 
     public User getCurrentUser() {
         return currentUser;
@@ -223,4 +245,40 @@ public class Userservice {
     }
 
 
+    public void generatePDF(List<Ticket> tickets, String username) {
+        Document document = new Document();
+        try {
+            String fileName = "Ticket_" + username + "_" + System.currentTimeMillis() + ".pdf";
+            PdfWriter.getInstance(document, new FileOutputStream(fileName));
+            document.open();
+
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+            Paragraph title = new Paragraph("Flight Ticket Confirmation", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(new Paragraph(" "));
+
+            for (Ticket ticket : tickets) {
+                document.add(new Paragraph("Ticket ID: " + ticket.getTicketid()));
+                document.add(new Paragraph("Username: " + username));
+                document.add(new Paragraph("From: " + ticket.getSource()));
+                document.add(new Paragraph("To: " + ticket.getDestination()));
+                document.add(new Paragraph("Seat Number: " + ticket.getSeatNo()));
+                document.add(new Paragraph("Class: " + ticket.getSeat_class()));
+                document.add(new Paragraph("Price: ₹" + ticket.getCost()));
+
+                document.add(new Paragraph("Flight Status: " + ticket.getStatus()));
+                document.add(new Paragraph(" "));
+                document.add(new LineSeparator());
+                document.add(new Paragraph(" "));
+
+                }
+
+            document.close();
+            System.out.println("PDF Ticket(s) saved successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to generate PDF ticket.");
+        }
+    }
 }
