@@ -41,4 +41,9 @@ Jackson – To persist data as JSON (Users, Planes, Tickets)
 iText PDF – To generate professional PDF tickets
 Java Collections & Enums – For managing data structures like seats, bookings, etc.
 
-<pre> 📁 Project Structure ``` ├── model/ │ ├── Plane.java │ ├── Ticket.java │ ├── User.java │ └── enums/ │ ├── SeatClass.java │ └── PlaneStatus.java ├── service/ │ ├── UserBookingService.java │ ├── PlaneService.java ├── utils/ │ └── PDFGenerator.java ├── data/ │ ├── users.json │ ├── planes.json ├── Main.java ``` </pre>
+
+💡 Highlights
+Lightweight, no database required – everything is persisted in JSON files.
+Clean modular code with proper separation of concerns.
+Secure and realistic simulation of a flight booking experience.
+Easy to test, extend, or adapt into a GUI or web version in the future.
