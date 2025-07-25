@@ -1,4 +1,4 @@
-
+  
 🚀 FlyAir is a Java-based console application that simulates a real-world airline booking experience, complete with secure login, dynamic flight searches, seat selection across multiple classes, PDF ticket generation, and a wallet-based payment system. It’s fully offline and all data is stored using JSON for simplicity and portability.
 
 🔧 Key Features
@@ -41,16 +41,4 @@ Jackson – To persist data as JSON (Users, Planes, Tickets)
 iText PDF – To generate professional PDF tickets
 Java Collections & Enums – For managing data structures like seats, bookings, etc.
 
-📁 Project Structure
-├── model/
-│   ├── Plane.java
-│   ├── Ticket.java
-│   ├── User.java
-│   └── Enums (SeatClass, PlaneStatus)
-├── service/
-│   ├── UserBookingService.java
-│   ├── PlaneService.java
-├── data/
-│   ├── users.json
-│   ├── planes.json
-├── Main.java
+<pre> 📁 Project Structure ``` ├── model/ │ ├── Plane.java │ ├── Ticket.java │ ├── User.java │ └── enums/ │ ├── SeatClass.java │ └── PlaneStatus.java ├── service/ │ ├── UserBookingService.java │ ├── PlaneService.java ├── utils/ │ └── PDFGenerator.java ├── data/ │ ├── users.json │ ├── planes.json ├── Main.java ``` </pre>
