@@ -7,7 +7,10 @@
     "source": "Mumbai",
     "destination": "Delhi",
     "availableSeats": 120,
-    "classAvailability": "ECONOMY"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 5000,
+    "businessPrice": 10000,
+    "firstClassPrice": 15000
   },
   {
     "planeId": "PLN002",
@@ -17,7 +20,10 @@
     "source": "Delhi",
     "destination": "Bangalore",
     "availableSeats": 90,
-    "classAvailability": "BUSINESS"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 6000,
+    "businessPrice": 12000,
+    "firstClassPrice": 18000
   },
   {
     "planeId": "PLN003",
@@ -27,7 +33,10 @@
     "source": "Chennai",
     "destination": "Kolkata",
     "availableSeats": 75,
-    "classAvailability": "FIRST_CLASS"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 4500,
+    "businessPrice": 9000,
+    "firstClassPrice": 13500
   },
   {
     "planeId": "PLN004",
@@ -37,7 +46,10 @@
     "source": "Hyderabad",
     "destination": "Mumbai",
     "availableSeats": 150,
-    "classAvailability": "ECONOMY"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 5500,
+    "businessPrice": 11000,
+    "firstClassPrice": 16500
   },
   {
     "planeId": "PLN005",
@@ -47,7 +59,10 @@
     "source": "Bangalore",
     "destination": "Goa",
     "availableSeats": 60,
-    "classAvailability": "BUSINESS"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 6500,
+    "businessPrice": 13000,
+    "firstClassPrice": 19500
   },
   {
     "planeId": "PLN006",
@@ -57,7 +72,10 @@
     "source": "Pune",
     "destination": "Ahmedabad",
     "availableSeats": 85,
-    "classAvailability": "ECONOMY"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 4000,
+    "businessPrice": 8000,
+    "firstClassPrice": 12000
   },
   {
     "planeId": "PLN007",
@@ -67,7 +85,10 @@
     "source": "Jaipur",
     "destination": "Lucknow",
     "availableSeats": 100,
-    "classAvailability": "BUSINESS"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 5000,
+    "businessPrice": 10000,
+    "firstClassPrice": 15000
   },
   {
     "planeId": "PLN008",
@@ -77,7 +98,10 @@
     "source": "Bhubaneswar",
     "destination": "Delhi",
     "availableSeats": 95,
-    "classAvailability": "FIRST_CLASS"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 7000,
+    "businessPrice": 14000,
+    "firstClassPrice": 21000
   },
   {
     "planeId": "PLN009",
@@ -87,7 +111,10 @@
     "source": "Mumbai",
     "destination": "Chandigarh",
     "availableSeats": 130,
-    "classAvailability": "ECONOMY"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 6000,
+    "businessPrice": 12000,
+    "firstClassPrice": 18000
   },
   {
     "planeId": "PLN010",
@@ -97,6 +124,9 @@
     "source": "Delhi",
     "destination": "Patna",
     "availableSeats": 70,
-    "classAvailability": "BUSINESS"
+    "classAvailability": ["ECONOMY", "BUSINESS", "FIRST_CLASS"],
+    "economyPrice": 5500,
+    "businessPrice": 11000,
+    "firstClassPrice": 16500
   }
 ]
